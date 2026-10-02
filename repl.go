@@ -8,7 +8,9 @@ import (
 )
 
 type config struct {
-	commands map[string]cliCommand
+	commands     map[string]cliCommand
+	prevLocation *string
+	nextLocation *string
 }
 
 func startRepl(cfg *config) {
@@ -63,6 +65,16 @@ func getCommands() map[string]cliCommand {
 			name:        "help",
 			description: "Displays a help message",
 			callback:    commandHelp,
+		},
+		"map": {
+			name:        "map",
+			description: "Show locations",
+			callback:    commandMap,
+		},
+		"mapb": {
+			name:        "mapb",
+			description: "Show prevouis locations",
+			callback:    commandMapb,
 		},
 	}
 	return commands
