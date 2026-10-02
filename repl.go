@@ -20,6 +20,10 @@ func startRepl(cfg *config) {
 	for {
 		fmt.Print("Pokedex >")
 		scanner.Scan()
+		err := scanner.Err()
+		if err != nil {
+			fmt.Println(err)
+		}
 		text := scanner.Text()
 
 		words := cleanInput(text)
