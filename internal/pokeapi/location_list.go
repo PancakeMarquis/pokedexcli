@@ -11,6 +11,17 @@ func (c *Client) ListLocations(pageURL *string) (LocationJson, error) {
 	if pageURL != nil {
 		url = *pageURL
 	}
+	val, exist := c.cache.Get(url)
+	if exist {
+		location := LocationJson{}
+		err := json.Unmarshal(val, &location)
+		if err != nil {
+			fmt.Println(err)
+			return LocationJson{}, err
+		}
+		return location, nil
+
+	}
 	res, err := c.httpClient.Get(url)
 	if err != nil {
 		return LocationJson{}, err
@@ -30,6 +41,7 @@ func (c *Client) ListLocations(pageURL *string) (LocationJson, error) {
 		fmt.Println(err)
 		return LocationJson{}, err
 	}
+	c.cache.Add(url, body)
 	return location, nil
 }
 

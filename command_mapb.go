@@ -2,8 +2,6 @@ package main
 
 import (
 	"fmt"
-
-	"github.com/PancakeMarquis/pokedexcli.git/internal/pokeapi"
 )
 
 func commandMapb(cfg *config) error {
@@ -13,8 +11,7 @@ func commandMapb(cfg *config) error {
 	}
 	url := cfg.prevLocation
 
-	client := pokeapi.Client{}
-	locations, err := client.ListLocations(url)
+	locations, err := cfg.pokeapiClient.ListLocations(url)
 	if err != nil {
 		return err
 	}
