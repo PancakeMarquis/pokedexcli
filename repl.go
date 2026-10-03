@@ -5,12 +5,15 @@ import (
 	"fmt"
 	"os"
 	"strings"
+
+	"github.com/PancakeMarquis/pokedexcli.git/internal/pokeapi"
 )
 
 type config struct {
-	commands     map[string]cliCommand
-	prevLocation *string
-	nextLocation *string
+	commands      map[string]cliCommand
+	pokeapiClient pokeapi.Client
+	prevLocation  *string
+	nextLocation  *string
 }
 
 func startRepl(cfg *config) {
