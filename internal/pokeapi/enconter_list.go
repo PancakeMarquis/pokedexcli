@@ -7,7 +7,7 @@ import (
 )
 
 func (c *Client) ListEncounters(name string) (EncounterJson, error) {
-	url := baseURL + name
+	url := baseURL + "location-area/" + name
 	val, exist := c.cache.Get(url)
 	if exist {
 		encounters := EncounterJson{}
@@ -28,7 +28,6 @@ func (c *Client) ListEncounters(name string) (EncounterJson, error) {
 	if err != nil {
 		return EncounterJson{}, err
 	}
-	fmt.Println(url)
 	if res.StatusCode > 299 {
 		return EncounterJson{}, fmt.Errorf("bad status: %d\n", res.StatusCode)
 	}
